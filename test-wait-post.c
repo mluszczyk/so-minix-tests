@@ -9,8 +9,9 @@ int main() {
 	proc_sem_init(1);
 	proc_sem_post(0);
 
-	printf("Forking. One of processes should print after one second.\n");
+	printf("Forking. Processes should print in 1 sec interval.\n");
 	pid_t child = fork();
+	pid_t child2 = fork();
 
 	assert(child >= 0);
 	proc_sem_wait(0);
@@ -19,6 +20,9 @@ int main() {
 	proc_sem_post(0);
 
 	if (child != 0) {
+		waitpid(-1, NULL, 0);
+	}
+	if (child2 != 0) {
 		waitpid(-1, NULL, 0);
 	}
 
